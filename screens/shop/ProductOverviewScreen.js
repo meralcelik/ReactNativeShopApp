@@ -7,7 +7,7 @@ import * as cartActions from '../../store/actions/cart';
 import HeaderButton from '../../components/UI/HeaderButton';
 
 
-const ProductsOverviewScreen = props => {
+const ProductOverviewScreen = props => {
   const products = useSelector(state => state.products.availableProducts);
   const dispatch = useDispatch();
 
@@ -35,16 +35,27 @@ const ProductsOverviewScreen = props => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = navData => {
+ProductOverviewScreen.navigationOptions = navData => {
   return {
     headerTitle: 'All Products',
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
     headerRight: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Cart"
           iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
           onPress={() => {
-              navData.navigation.navigate('Cart')
+            navData.navigation.navigate('Cart');
           }}
         />
       </HeaderButtons>
@@ -52,4 +63,4 @@ ProductsOverviewScreen.navigationOptions = navData => {
   };
 };
 
-export default ProductsOverviewScreen;
+export default ProductOverviewScreen;
