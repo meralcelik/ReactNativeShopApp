@@ -4,7 +4,8 @@ import {createAppContainer} from 'react-navigation';
 import { Platform } from 'react-native';
 import React from "react";
 import { Ionicons } from '@expo/vector-icons';
-
+import UserProducstScreen from '../screens/user/UserProducstScreen';
+import EditProductScreen from '../screens/user/EditProductScreen';
 import ProductOverviewScreen from '../screens/shop/ProductOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
 import CartScreen from '../screens/shop/CartScreen';
@@ -16,18 +17,17 @@ const defaultNavOptions = {
     backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
   },
   headerTitleStyle: {
-    
-    // fontFamily: 'open-sans-bold'
+    fontFamily: 'open-sans-bold'
   },
   headerBackTitleStyle: {
-    // fontFamily: 'open-sans'
+    fontFamily: 'open-sans'
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 };
 
 const ProductsNavigator = createStackNavigator(
   {
-    ProductsOverview: ProductOverviewScreen,
+    ProductOverview: ProductOverviewScreen,
     ProductDetail: ProductDetailScreen,
     Cart: CartScreen
   },
@@ -63,10 +63,30 @@ const OrdersNavigator = createStackNavigator(
   }
 );
 
+const AdminNavigator = createStackNavigator(
+    {
+      UserProducts: UserProducstScreen,
+      EditProduct: EditProductScreen
+    },
+    {
+      navigationOptions: {
+        drawerIcon: drawerConfig => (
+          <Ionicons
+            name={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
+            size={23}
+            color={drawerConfig.tintColor}
+          />
+        )
+      },
+      defaultNavigationOptions: defaultNavOptions
+    }
+  );
+
 const ShopNavigator = createDrawerNavigator(
   {
     Products: ProductsNavigator,
-    Orders: OrdersNavigator
+    Orders: OrdersNavigator,
+    Admin: AdminNavigator
   },
   {
     contentOptions: {
